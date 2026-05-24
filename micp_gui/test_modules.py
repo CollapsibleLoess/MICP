@@ -1,0 +1,68 @@
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+sys.path.insert(0, r'd:\5Coding\0000MICPExcel\micp_gui')
+from core import MICPProcessor
+
+proc = MICPProcessor()
+proc.load(r'd:\5Coding\0000MICPExcel\HT-3.xlsm')
+result = proc.process()
+
+print(f'Sample: {result._sample_name}')
+print(f'He porosity: {result._he_porosity:.4f}%')
+print(f'MICP porosity: {result.cal_porosity:.4f}%')
+print(f'Bulk density: {result.bulk_density:.4f}')
+print(f'Skeletal density: {result.skeletal_density:.4f}')
+print()
+
+print('=== 容量特征 ===')
+print(f'Pore volume: {result.pore_volume:.6f} mL/g')
+print(f'Total pore area: {result.total_pore_area:.4f} m2/g')
+print(f'SSA: {result.specific_surface_area:.4f} m2/g')
+print(f'Avg pore diameter: {result.avg_pore_diameter_nm:.2f} nm')
+print()
+
+print('=== 几何大小 ===')
+print(f'Median P(Pc50): {result.median_pressure:.4f} MPa')
+print(f'Median D: {result.median_diameter_um:.6f} um')
+print(f'Median D(vol): {result.median_pore_diameter_volume_nm:.2f} nm')
+print(f'Median D(area): {result.median_pore_diameter_area_nm:.2f} nm')
+print()
+
+print('=== 分布形态 ===')
+print(f'Sp: {result.sorting_coefficient:.4f}')
+print(f'Skp: {result.skewness:.4f}')
+print(f'Kp: {result.kurtosis:.4f}')
+print(f'DM: {result.mean_radius:.4f}')
+print(f'Phi: {result.structure_coefficient:.4f}')
+print(f'D: {result.relative_sorting_coeff:.4f}')
+print()
+
+print('=== 渗流特征 ===')
+print(f'Displacement P: {result.displacement_pressure:.4f} MPa')
+print(f'Max pore D: {result.max_pore_diameter_um:.4f} um')
+print(f'Intrusion sat: {result.intrusion_saturation:.2f}%')
+print(f'Efficiency: {result.efficiency:.4f}%')
+print(f'BPR: {result.breakthrough_pressure_ratio:.4f}')
+print()
+
+print('=== 连通特征 ===')
+print(f'Char length: {result.characteristic_length_nm:.2f} nm')
+print(f'CFF: {result.conductivity_formation_factor:.4f}')
+print(f'Tort factor: {result.tortuosity_factor:.4f}')
+print(f'Tortuosity: {result.tortuosity:.4f}')
+print()
+
+print('=== 空间复杂性 ===')
+print(f'Fractal D: {result.fractal_dimensions[0]:.4f}' if result.fractal_dimensions else 'Fractal: N/A')
+print(f'Percolation D: {result.percolation_fractal_dimension:.4f}')
+print()
+
+print('=== 渗透率 ===')
+print(f'Perm 413: {result.permeability_413:.6e}')
+print(f'Perm 10: {result.permeability_10:.6e}')
+print()
+
+print(f'N intrusion: {result.n_intrusion_points}')
+print(f'N withdrawal: {result.n_withdrawal_points}')
+print()
+print('ALL MODULES OK!')
